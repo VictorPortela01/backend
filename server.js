@@ -30,6 +30,11 @@ app.use(express.json());
 
 const SECRET_KEY = "seu_segredo"; // Utilizando variável de ambiente
 
+const FRONTEND_URL = "https://dissobelmetas.com"; // Substitua pelo domínio do seu frontend
+
+app.get("/", (req, res) => {
+    res.redirect(FRONTEND_URL);
+});
 // Rota GET para buscar todos os usuários
 app.get('/users', async (req, res) => {
   try {
