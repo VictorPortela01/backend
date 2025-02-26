@@ -7,7 +7,7 @@ const Teste36 = require("./models/Teste36");
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://dissobelmetas.com"],
+  origin: ["*"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
