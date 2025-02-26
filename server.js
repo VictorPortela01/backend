@@ -7,11 +7,10 @@ const Teste36 = require("./models/Teste36");
 const app = express();
 
 app.use(cors({
-  origin: ["*"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: ['http://localhost:5173', 'dissobelmetas.com'], // Permite apenas o frontend acessar
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  credentials: true // Se estiver usando cookies ou autenticação
 }));
-
 app.use(express.json());
 
 
