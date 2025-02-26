@@ -6,11 +6,24 @@ const Teste36 = require("./models/Teste36");
 
 const app = express();
 
-app.use(cors({
-  origin: ['http://localhost:5173', 'dissobelmetas.com'], // Permite apenas o frontend acessar
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
-  credentials: true // Se estiver usando cookies ou autenticação
-}));
+app.use(cors());
+
+// Ou permitir apenas uma origem específica
+// app.use(cors({ origin: 'http://localhost:3000' })); 
+
+// Exemplo de resposta com cabeçalhos CORS manualmente
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*"); // Permite qualquer origem
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
+    
+    next();
+});
+
 app.use(express.json());
 
 
