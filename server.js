@@ -155,6 +155,6 @@ app.delete("/usuario/:id", async (req, res) => {
 
 
 // Iniciar o servidor
-app.listen(5000, () => {
-  console.log(`Servidor rodando na porta 5000`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log("Servidor rodando...");
 });
