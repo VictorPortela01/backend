@@ -8,7 +8,7 @@ const app = express();
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
+  res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login", "http://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: ["https://https://dissobelmetas.com", "http://localhost:5173", "https://backend-production-ce0e.up.railway.app/login"], // Adapte para seu domínio real
+  origin: ["https://https://dissobelmetas.com", "http://localhost:5173", "https://backend-production-ce0e.up.railway.app/login", "http://backend-production-ce0e.up.railway.app/login"], // Adapte para seu domínio real
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
   credentials: true
@@ -37,51 +37,13 @@ const FRONTEND_URL = "https://dissobelmetas.com"; // Substitua pelo domínio do 
 app.get("/", (req, res) => {
     res.redirect(FRONTEND_URL);
 });
-app.get("/login", (req, res) => {
+app.get("/api/login", (req, res) => {
     res.redirect(FRONTEND_URL);
 });
-// Rota GET para buscar todos os usuários
-app.get('/users', async (req, res) => {
-  try {
-    const users = await User.findAll(); // Busca todos os registros na tabela "users"
-    res.json(users);  // Retorna os dados em formato JSON
-  } catch (error) {
-    console.error('Erro ao buscar usuários:', error);
-    res.status(500).send('Erro ao buscar usuários');
-  }
-});
 
-app.get('/teste', async (req, res) => {
-  try {
-    const teste36 = await Teste36.findAll()
-    res.json(teste36)
-  } catch (error) {
-    console.error('Erro ')
-  }
-})
-
-// Nova rota GET para buscar dados da tabela Teste36 por código
-app.get('/teste/:cpf', async (req, res) => {
-  const { cpf  } = req.params;
-  console.log("Código recebido no backend:", cpf ); // Debug
-
-  try {
-    const registro = await Teste36.findOne({ 
-      where: { cpf: cpf.toString()  } });
-
-    if (!registro) {
-      return res.status(404).json({ error: "Registro não encontrado para CPF fornecido." });
-    }
-
-    res.json(registro);
-  } catch (error) {
-    console.error('Erro ao buscar registro por CPF :', error);
-    res.status(500).json({ error: "Erro no servidor." });
-  }
-});
 
 // Rota para login
-app.post("/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { cpf } = req.body;
 
   console.log("Dados recebidos no login:", req.body); // Debug
