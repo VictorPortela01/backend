@@ -11,7 +11,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // Adapte para seu domínio
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header("Access-Control-Allow-Credentials", true)
+  res.header("Access-Control-Allow-Credentials", "true")
   
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -46,8 +46,6 @@ app.get("/api/login", (req, res) => {
 // Rota para login
 app.post("/api/login", async (req, res) => {
   const { cpf } = req.body;
-
-  console.log("Dados recebidos no login:", req.body); // Debug
 
   try {
     // Verificar se o usuário existe no banco de dados pelo CPF
