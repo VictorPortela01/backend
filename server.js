@@ -6,6 +6,19 @@ const Teste36 = require("./models/Teste36");
 
 const app = express();
 
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  
+  next();
+});
+
 app.use(cors({
   origin: ["https://https://dissobelmetas.com", "http://localhost:5173", "https://backend-production-ce0e.up.railway.app/login"], // Adapte para seu domínio real
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -13,17 +26,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
-    if (req.method === "OPTIONS") {
-        return res.status(200).end();
-    }
-
-    next();
-});
 app.use(express.json());
 
 
