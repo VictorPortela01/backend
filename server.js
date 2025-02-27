@@ -36,6 +36,45 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.redirect(FRONTEND_URL);
 });
+// Rota GET para buscar todos os usuários
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.findAll(); // Busca todos os registros na tabela "users"
+    res.json(users);  // Retorna os dados em formato JSON
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error);
+    res.status(500).send('Erro ao buscar usuários');
+  }
+});
+
+app.get('/teste', async (req, res) => {
+  try {
+    const teste36 = await Teste36.findAll()
+    res.json(teste36)
+  } catch (error) {
+    console.error('Erro ')
+  }
+})
+
+// Nova rota GET para buscar dados da tabela Teste36 por código
+app.get('/teste/:cpf', async (req, res) => {
+  const { cpf  } = req.params;
+  console.log("Código recebido no backend:", cpf ); // Debug
+
+  try {
+    const registro = await Teste36.findOne({ 
+      where: { cpf: cpf.toString()  } });
+
+    if (!registro) {
+      return res.status(404).json({ error: "Registro não encontrado para CPF fornecido." });
+    }
+
+    res.json(registro);
+  } catch (error) {
+    console.error('Erro ao buscar registro por CPF :', error);
+    res.status(500).json({ error: "Erro no servidor." });
+  }
+});
 
 // Rota para login
 app.post("/api/login", async (req, res) => {
