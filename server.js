@@ -38,10 +38,6 @@ const FRONTEND_URL = "https://dissobelmetas.com"; // Substitua pelo domínio do 
 app.get("/", (req, res) => {
     res.redirect(FRONTEND_URL);
 });
-app.get("/api/login", (req, res) => {
-    res.redirect(FRONTEND_URL);
-});
-
 
 // Rota para login
 app.post("/api/login", async (req, res) => {
