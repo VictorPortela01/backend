@@ -6,24 +6,24 @@ const Teste36 = require("./models/Teste36");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ["https://https://dissobelmetas.com", "http://localhost:5173", "https://backend-production-ce0e.up.railway.app/login"], // Adapte para seu domínio real
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
+  credentials: true
+}));
 
-// Ou permitir apenas uma origem específica
-// app.use(cors({ origin: 'http://localhost:3000' })); 
-
-// Exemplo de resposta com cabeçalhos CORS manualmente
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // Permite qualquer origem
+    res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
 
     if (req.method === "OPTIONS") {
         return res.status(200).end();
     }
-    
+
     next();
 });
-
 app.use(express.json());
 
 
@@ -33,6 +33,9 @@ const SECRET_KEY = "seu_segredo"; // Utilizando variável de ambiente
 const FRONTEND_URL = "https://dissobelmetas.com"; // Substitua pelo domínio do seu frontend
 
 app.get("/", (req, res) => {
+    res.redirect(FRONTEND_URL);
+});
+app.get("/login", (req, res) => {
     res.redirect(FRONTEND_URL);
 });
 // Rota GET para buscar todos os usuários
@@ -130,45 +133,6 @@ app.get("/dashboard", verifyToken, (req, res) => {
   res.json({ message: `Bem-vindo ao dashboard, ${req.user.username}!` });
 });
 
-
-// 🔍 Listar usuários que não estão mais ativos na empresa
-app.get("/usuarios-inativos", async (req, res) => {
-    try {
-        const usuariosInativos = await User.findAll({
-            where: {
-                codigo: {
-                    [Sequelize.Op.notIn]: Sequelize.literal("(SELECT codigo FROM teste36)")
-                }
-            }
-        });
-
-        res.json(usuariosInativos);
-    } catch (error) {
-        console.error("Erro ao buscar usuários inativos:", error);
-        res.status(500).json({ erro: "Erro ao buscar usuários inativos." });
-    }
-});
-
-// ❌ Deletar um usuário pelo ID
-app.delete("/usuario/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        // Verifica se o usuário existe
-        const usuario = await User.findByPk(id);
-        if (!usuario) {
-            return res.status(404).json({ erro: "Usuário não encontrado." });
-        }
-
-        // Deleta o usuário
-        await usuario.destroy();
-        res.json({ mensagem: "Usuário deletado com sucesso!" });
-
-    } catch (error) {
-        console.error("Erro ao deletar usuário:", error);
-        res.status(500).json({ erro: "Erro ao deletar usuário." });
-    }
-});
 
 
 // Iniciar o servidor
