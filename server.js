@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   res.redirect(FRONTEND_URL);
 });
 // Rota GET para buscar todos os usuários
-app.get('/users', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
     const users = await User.findAll(); // Busca todos os registros na tabela "users"
     res.json(users);  // Retorna os dados em formato JSON
@@ -47,7 +47,7 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/teste', async (req, res) => {
+app.get('/api/teste', async (req, res) => {
   try {
     const teste36 = await Teste36.findAll()
     res.json(teste36)
@@ -57,7 +57,7 @@ app.get('/teste', async (req, res) => {
 })
 
 // Nova rota GET para buscar dados da tabela Teste36 por código
-app.get('/teste/:cpf', async (req, res) => {
+app.get('/api/teste/:cpf', async (req, res) => {
   const { cpf  } = req.params;
   console.log("Código recebido no backend:", cpf ); // Debug
 
