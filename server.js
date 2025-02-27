@@ -8,9 +8,10 @@ const app = express();
 
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "https://backend-production-ce0e.up.railway.app/login", "http://backend-production-ce0e.up.railway.app/login"); // Adapte para seu domínio
+  res.header("Access-Control-Allow-Origin", "https://https://dissobelmetas.com" , "*"); // Adapte para seu domínio
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Credentials", true)
   
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: ["https://https://dissobelmetas.com", "http://localhost:5173", "https://backend-production-ce0e.up.railway.app/login", "http://backend-production-ce0e.up.railway.app/login"], // Adapte para seu domínio real
+  origin: ["*"], // Adapte para seu domínio real
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "Authorization"],
   credentials: true
