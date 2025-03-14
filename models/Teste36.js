@@ -6,24 +6,29 @@ const Teste36 = db.define('teste36', {
   cpf: {
     type: Sequelize.STRING,
     allowNull: false
-    // A condição que puxa as duas planilhas.
   },
   codigo: {
     type: Sequelize.INTEGER,
-    allowNull: false 
-    // Aqui deveria ser unique:true mas tem códigos de motorista e ajudante que são iguais.
+    allowNull: false
   },
   nome: {
     type: Sequelize.STRING,
     allowNull: false
-    // A condição que puxa as duas planilhas.
   },
-  rating: {
+  taxaRespostaRating: {
+    type: Sequelize.FLOAT,
+    allowNull: true
+  },
+  avaliacaoRating: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  apotamentoBeesDel: {
     type: Sequelize.STRING,
     allowNull: true
   },
   tml: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true
   },
   vales: {
@@ -31,22 +36,22 @@ const Teste36 = db.define('teste36', {
     allowNull: true
   },
   boleto: {
+    type: Sequelize.BOOLEAN,
+    allowNull: true
+  },
+  devolucao: {
     type: Sequelize.STRING,
     allowNull: true
   },
-  devolução: {
+  aderenciaRaio: {
     type: Sequelize.STRING,
     allowNull: true
   },
   combustivel: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true
   },
   avarias: {
-    type: Sequelize.STRING,
-    allowNull: true
-  },
-  cxEntregue: {
     type: Sequelize.STRING,
     allowNull: true
   },
@@ -55,7 +60,7 @@ const Teste36 = db.define('teste36', {
     allowNull: true
   },
 }, {
-  freezeTableName: true // Evita a pluralização do nome da tabela)
+  freezeTableName: true
 })
 // Teste36.sync({ force: true });
 
