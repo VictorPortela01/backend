@@ -16,7 +16,7 @@ const Teste36 = db.define('teste36', {
     allowNull: false
   },
   taxaRespostaRating: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.STRING,
     allowNull: true
   },
   avaliacaoRating: {
@@ -28,7 +28,7 @@ const Teste36 = db.define('teste36', {
     allowNull: true
   },
   tml: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.STRING,
     allowNull: true
   },
   vales: {
@@ -36,7 +36,7 @@ const Teste36 = db.define('teste36', {
     allowNull: true
   },
   boleto: {
-    type: Sequelize.BOOLEAN,
+    type: Sequelize.STRING,
     allowNull: true
   },
   devolucao: {
@@ -48,7 +48,7 @@ const Teste36 = db.define('teste36', {
     allowNull: true
   },
   combustivel: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.STRING,
     allowNull: true
   },
   avarias: {
